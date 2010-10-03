@@ -1,0 +1,9 @@
+!!!
+%html
+  %head
+    %title Pusher
+    = javascript_include_tag :defaults
+    = javascript_include_tag 'http://js.pusherapp.com/1.5/pusher.js'
+    = csrf_meta_tag
+  %body
+    = yield

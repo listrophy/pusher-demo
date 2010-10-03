@@ -1,0 +1,7 @@
+:javascript
+  var server = new Pusher('d61a131f34bea2c07610', 'mah-channel');
+  server.bind('mah-event', function(data){document.getElementById('msg').innerHTML = data;});
+%h1 hi
+%p
+  The message is:
+  %span#msg empty
