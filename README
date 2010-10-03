@@ -1,3 +1,39 @@
 == Pusher-demo
 
 I created this app to demonstrate using pusherapp.com very quickly. Basically, I created this app, configured it, and deployed it during a 5 minute lightning talk.
+
+== How it was created
+
+  cd ~/dev/start-rails3
+  rails new pusher
+  mv pusher ../pusher
+  cd ../pusher
+  echo 'rvm use 1.9.2@pusher' > .rvmrc
+  cd ..
+  cd pusher
+  echo "source 'http://rubygems.org'
+  gem 'rails'
+  gem 'sqlite3-ruby', :require => 'sqlite3'
+  gem 'pusher'
+  gem 'haml-rails'
+  gem 'hpricot'
+  gem 'heroku'
+  gem 'ruby_parser'" > Gemfile
+  cp ../Gemfile.lock .
+  bundle
+  (cd app/views/layouts; html2haml application.html.{erb,haml}; rm application.html.erb)
+  cp ../pusher.rb config/initializers/
+  rails g controller bcmke view create
+  mvim .
+  = javascript_include_tag 'http://js.pusherapp.com/1.5/pusher.js'
+  def create
+  Pusher['bcmke'].trigger('teh-awesome', params[:msg] || 'default message')
+  end
+  update the view
+  var pusher = new Pusher('d61a131f34bea2c07610', 'mah-channel');
+  pusher.bind('mah-event', function(data) { document.getElementById('msg').innerHTML = data;});
+  git init
+  git add .
+  git commit -m 'initial commit'
+  heroku create pusher-demo
+  git push heroku master
